@@ -9,6 +9,9 @@ import { ProductModule } from './product/product.module';
 import { ProductService } from './product/product.service';
 import { StudentModule } from './student/student.module';
 import { UserModule } from './user/user.module';
+import { ConfigModule } from '@nestjs/config';
+import { EvService } from './ev/ev.service';
+import { EvController } from './ev/ev.controller';
 
 @Module({
   imports: [
@@ -18,9 +21,13 @@ import { UserModule } from './user/user.module';
     EmployeeModule,
     ProductModule,
     StudentModule,
-    UserModule
+    UserModule,
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
   ],
-  providers: [AppService, ProductService, DatabaseService],
+  providers: [AppService, ProductService, DatabaseService, EvService],
+  controllers: [EvController],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
